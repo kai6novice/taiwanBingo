@@ -24,16 +24,7 @@ def checkRCross(m):
             return False
     return True
  
-def checkBoard():
-    w, h = 6, 6;
-    m = [[False for x in range(w)] for y in range(h)]
-    for i in range(0,15):
-        x = random.randrange(0,6)
-        y = random.randrange(0,6)
-        while m[x][y] == True:
-            x = random.randrange(0,6)
-            y = random.randrange(0,6)
-        m[x][y]=True
+def checkBoard(m):
     for x in range(0,6):
         if checkColumn(m, x) == True:
             return True
@@ -43,10 +34,23 @@ def checkBoard():
     if (checkLCross(m) == True) or (checkRCross(m) == True):
         return True
     return False
+
+def initBoard():
+    w, h = 6, 6;
+    m = [[False for x in range(w)] for y in range(h)]
+    for i in range(0,15):
+        x = random.randrange(0,6)
+        y = random.randrange(0,6)
+        while m[x][y] == True:
+            x = random.randrange(0,6)
+            y = random.randrange(0,6)
+        m[x][y]=True
+    return m
 win = 0
 total = 0
 for i in range(0,10000):
-    if checkBoard() == True:
+    m = initBoard()
+    if checkBoard(m) == True:
         win += 1
     total += 1
 print ("out of ", total, " trials...")
